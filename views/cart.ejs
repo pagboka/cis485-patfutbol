@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="author" content="Patrick Agboka">
+    <meta name="description" content="Shopping cart page for PatFutbol store">
+    <title>PatFutbol! - Your Cart</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon rounded-circle mb-4" href="pics/Home/realicon.jpg" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#!">PatFutbol!</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav d-flex justify-content-evenly mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="index.ejs">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="laliga.ejs">La Liga</a></li>
+                    <li class="nav-item"><a class="nav-link" href="prem.ejs">Premier League</a></li>
+                    <li class="nav-item"><a class="nav-link" href="seriea.ejs">Serie A</a></li>
+                    <li class="nav-item"><a class="nav-link" href="bundesliga.ejs">Bundesliga</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.ejs">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.ejs">Contact</a></li>
+                </ul>
+                <form class="d-flex position-relative">
+                    <button class="btn btn-outline-light" type="button" id="cartButton">
+                        <i class="bi-cart-fill me-1"></i> Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+
+                    <!-- Cart Dropdown -->
+                    <div id="cartDropdown" class="cart-dropdown shadow bg-white p-3" 
+                         style="display: none; position: absolute; right: 0; top: 100%; width: 250px; z-index: 1000; border-radius: 8px;">
+                        <h6 class="text-center">Cart Items</h6>
+                        <ul id="cartItemsList" class="list-unstyled"></ul>
+                        <div class="text-center mt-2">
+                            <button id="clearCartButton" class="btn btn-sm btn-danger">Clear Cart</button>
+                            <a href="cart.ejs" class="btn btn-sm btn-dark">View Cart</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Content -->
+    <div class="container bg-white rounded-top mt-5 py-4" id="cart-container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-10 col-12 pt-3">
+                <div class="d-flex">
+                    <div class="pt-1"><h4>Your Shopping Cart</h4></div>
+                    <div class="ms-auto p-2"><a href="index.ejs" class="text-decoration-none">Continue Shopping</a></div>                                        
+                </div>
+
+                <!-- Cart Header -->
+                <div class="d-none d-md-flex flex-row px-lg-5 mx-lg-5 mt-4" id="cart-headers">
+                    <div class="col-5">PRODUCT</div>
+                    <div class="col-2 text-center">PRICE</div>
+                    <div class="col-2 text-center">QUANTITY</div>
+                    <div class="col-2 text-center">TOTAL</div>
+                    <div class="col-1 text-end"></div>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="cart-items-container"></div>
+
+                <!-- Empty Cart Message -->
+                <div id="empty-cart-message" class="empty-cart text-center" style="display: none;">
+                    <i class="bi bi-cart-x" style="font-size: 3rem;"></i>
+                    <h4>Your cart is empty</h4>
+                    <p class="text-muted">Looks like you haven't added any products yet.</p>
+                    <a href="index.ejs" class="btn btn-continue-shopping mt-3">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="container bg-light rounded-bottom py-4" id="cart-summary">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-10 col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="index.ejs" class="btn btn-sm bg-light border border-dark">GO BACK</a>
+                        <button id="cart-clear-button" class="btn btn-sm btn-danger ms-2">CLEAR CART</button>
+                    </div>
+                    <div class="px-md-0 px-1" id="footer-font">
+                        <b class="pl-md-4">SUBTOTAL <span id="cart-subtotal" class="ms-3">$0.00</span></b>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm bg-dark text-white px-lg-5 px-3">CHECKOUT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Cart JS -->
+    <script src="js/cart.js"></script>
+</body>
+</html>
