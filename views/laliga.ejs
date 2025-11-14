@@ -12,49 +12,12 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">La Liga</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex justify-content-evenly mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.ejs">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="laliga.ejs">La Liga</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="prem.ejs">Premier League</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="seriea.ejs">Serie A</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="bundesliga.ejs">Bundesliga</a></li>
+            <%- include("partials/navbar", { userid: userid }) %>
 
-
-
-                        <li class="nav-item"><a class="nav-link" href="about.ejs">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.ejs">Contact</a></li>
-
-                        
-                    </ul>
-                    <form class="d-flex position-relative">
-                        <button class="btn btn-outline-dark" type="button" id="cartButton">
-                            <i class="bi-cart-fill me-1"></i> Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    
-                        <!-- Cart Dropdown -->
-                        <div id="cartDropdown" class="cart-dropdown shadow bg-white p-3" style="display: none; position: absolute; right: 0; top: 100%; width: 250px; z-index: 1000; border-radius: 8px;">
-                            <h6 class="text-center">Cart Items</h6>
-                            <ul id="cartItemsList" class="list-unstyled"></ul>
-                            <div class="text-center mt-2">
-                                <button id="clearCartButton" class="btn btn-sm btn-danger">Clear Cart</button>
-                                <a href="cart.ejs" class="btn btn-sm btn-dark">View Cart</a>
-                            </div>
-                        </div>
-                    </form>
-                    
-                </div>
-            </div>
-        </nav>
         <!-- Header-->
         <header class="bg-dark py-5" 
     style="background-image: url('pics/Home/laligabackgr.jpg'); 
@@ -70,434 +33,52 @@
         </header>
         <!-- Section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="card">
+            <div class="container">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4 justify-content-center">
+                    <% products.forEach(product=> { %>
+                        <div class="col">
+                            <div class="card h-100" data-league="<%= product.league %>"
+                                data-image="<%= product.image %>">
+                                <img src="/pics/<%= product.league %>/<%= product.image %>" class="card-img-top"
+                                    alt="<%= product.name %>">
+                                <div class="card-body text-center d-flex flex-column">
 
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/1997_98_Athletic_Bilbao_Centenary_Home_Shirt.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">1997-98 Athletic Bilbao Centenary Home Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
+                                    <!-- Product name (equal height) -->
+                                    <h5 class="fw-bolder product-name mb-2" style="min-height: 48px;">
+                                        <%= product.name %>
+                                    </h5>
+
+                                    <!-- Rating (equal height) -->
+                                    <div class="rating-row d-flex justify-content-center mb-2"
+                                        style="min-height: 24px;">
+                                        <% for (let i=0; i < 5; i++) { %>
+                                            <i
+                                                class="<%= i < product.rating ? 'bi-star-fill' : 'bi-star' %> text-warning"></i>
+                                            <% } %>
                                     </div>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00 <br>
-                                    <span class="text-muted product-id">#LL-01</span>
+
+                                    <!-- Price (always pushed to bottom) -->
+                                    <span class="product-price mt-auto">$<%= product.price %></span>
 
                                 </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
+
+
+                                <div class="card-footer text-center bg-white border-top-0">
+                                    <button class="btn btn-outline-dark add-to-cart mt-auto">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2003_04_Real_Madrid_Home_Shirt_Zidane_5.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2003-04 Real Madrid Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00 <br>
-                                    <span class="text-muted product-id">#LL-02</span>
-
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2009_10_Real_Madrid_Away_Shirt_Ronaldo_9.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2009-10 Real Madrid Away Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00 <br>
-                                    <span class="text-muted product-id">#LL-03</span>
-
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2011_12_Barcelona_Home_Shirt_Pique_3.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2011-12 Barcelona Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#LL-04</span>
-
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2012_13_Espanyol_Away_Shirt_6_10.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2012-13 Espanyol Away Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00 <br>
-                                    <span class="text-muted product-id">#LL-05</span>
-
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2016_17_Barcelona_Third_Shirt_Suarez_9.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2016-17 Barcelona Third Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $120.00 - $280.00 <br>
-                                    <span class="text-muted product-id">#LL-06</span>
-
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2017_18_Real_Sociedad_Home_Shirt_9_10.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2017-18 Real Sociedad Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00 <br> 
-                                    <span class="text-muted product-id">#LL-07</span>
-
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2017_18_Valencia_Home_Shirt_C_Soler_18.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2017-18 Valencia Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#LL-08</span>
-
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2019_20_Alaves_Away_Shirt_9_10.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2019-20 Alaves Away Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#LL-09</span>
-
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2019_20_Atletico_Madrid_Home_Shirt_M_Llorente_14.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2019-20 Atletico Madrid Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#LL-10</span>
-
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2022_23_Real_Madrid_Away_Shirt_Vini_Jr_20.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2022-23 Real Madrid Away Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#LL-11</span>
-
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/La Liga/2024_25_Real_Betis_Third_Shirt_Bellerin_2.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2024- 25 Real Betis Third Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#LL-12</span>
-
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                        <% }) %>
                 </div>
             </div>
         </section>
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Patrick Agboka's Website 2025</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/scripts.js"></script>        
+        <script src="/cart.js"></script>        
     </body>
 </html>

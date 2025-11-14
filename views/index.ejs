@@ -4,254 +4,87 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name= "author" content= "Patrick Agboka">
-	<meta name= "Index Page" content= "The entry page for my online store.">
+    <meta name="author" content="Patrick Agboka">
+    <meta name="Index Page" content="The entry page for my online store.">
     <title>PatFutbol!</title>
-    <link rel="icon" type="image/x-icon rounded-circle mb-4" href="pics/Home/realicon.jpg" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/pics/Home/realicon.jpg" />
+    <link href="/css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#!">PatFutbol!</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav d-flex justify-content-evenly mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.ejs">Home</a></li>
-                    
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="laliga.ejs">La Liga</a></li>
-                    
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="prem.ejs">Premier League</a></li>
-                    
-                    
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="seriea.ejs">Serie A</a></li>
-                    
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="bundesliga.ejs">Bundesliga</a></li>
+    <!-- Navbar -->
+    <%- include("partials/navbar", { userid: userid }) %>
 
-
-
-                    <li class="nav-item"><a class="nav-link" href="about.ejs">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.ejs">Contact</a></li>
-
-                    
-                </ul>
-                <form class="d-flex position-relative">
-                    <button class="btn btn-outline-dark" type="button" id="cartButton">
-                        <i class="bi-cart-fill me-1"></i> Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
-                
-                    <!-- Cart Dropdown -->
-                    <div id="cartDropdown" class="cart-dropdown shadow bg-white p-3" style="display: none; position: absolute; right: 0; top: 100%; width: 250px; z-index: 1000; border-radius: 8px;">
-                        <h6 class="text-center">Cart Items</h6>
-                        <ul id="cartItemsList" class="list-unstyled"></ul>
-                        <div class="text-center mt-2">
-                            <button id="clearCartButton" class="btn btn-sm btn-danger">Clear Cart</button>
-                            <a href="cart.ejs" class="btn btn-sm btn-dark">View Cart</a>
-                        </div>
-                    </div>
-                </form>
-                
-                
-            </div>
-        </div>
-    </nav>
-    <!-- Header - set the background image for the header in the line below-->
-    <header class="py-5 bg-image-full" style="background-image: url('pics/Home/backgrimg.jpg')">
+    <!-- Header -->
+    <header class="py-5 bg-image-full" style="background-image: url('/pics/Home/backgrimg.jpg'); background-size: cover; background-position: center;">
         <div class="text-center my-5">
-            <img class="img-fluid rounded-circle mb-4" src="pics/Home/realicon.jpg" alt="..." />
+            <img class="img-fluid rounded-circle mb-4" src="/pics/Home/realicon.jpg" alt="Logo" />
             <h1 class="text-white fs-3 fw-bolder">Welcome To PatFutbol!</h1>
         </div>
     </header>
-    <!-- Content section-->
-    <section class="py-5">
-        <div class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h2>Featured Jerseys</h2>
-                    <p class="lead">Browse our collection of retro jerseys from La Liga, Bundesliga, Premier League, and
-                        Serie A.</p>
-                    <p class="mb-0">Relive the golden eras of football with classic designs worn by legends. Every
-                        jersey tells a story—celebrate the history, passion, and style of the beautiful game.</p>
-                </div>
+    <div style="width: 100%; height: 37px; background-color: #343a40;"></div>
+
+
+    <!-- Background wrapper for bubbles -->
+    <div class="py-5 bg-image-full" style="background-image: url('/pics/Home/backgroundimg2.jpg'); background-size: cover; background-position: center;">
+
+        <!-- Featured Jerseys Bubble -->
+        <div class="container mx-auto p-4 my-5 rounded shadow bg-white" style="max-width: 50%;">
+            <div class="text-center">
+                <h2>Featured Jerseys</h2>
+                <p class="lead">Browse our collection of retro jerseys from La Liga, Bundesliga, Premier League, and Serie A.</p>
+                <p class="mb-0">Relive the golden eras of football with classic designs worn by legends. Every jersey tells a story—celebrate the history, passion, and style of the beautiful game.</p>
             </div>
         </div>
-    </section>
-    <!-- Image element - set the background image for the header in the line below-->
-    <div class="py-5 bg-image-full"
-        style="background-image: url('pics/Home/backgroundimg2.jpg'); background-size: cover; background-position: center;">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="card">
 
-                <div class="col mb-5">
-                    <div class="card h-100 bg-white border-light shadow">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="pics/La Liga/1997_98_Athletic_Bilbao_Centenary_Home_Shirt.webp"
-                            alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4 text-black">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">1997-98 Athletic Bilbao Centenary Home Shirt</h5>
-                                <!-- Product price-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                </div>
-                                <!-- Product price-->
-                                $40.00 - $80.00 <br>
-                                <span class="text-muted product-id">#LL-01</span>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                            <div class="text-center"> <button class="btn btn-outline-dark mt-auto add-to-cart"
-                                    data-id="jersey-1">Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="card">
-
-                <div class="col mb-5">
-                    <div class="card h-100 bg-white border-light shadow">
-                        <img class="card-img-top" src="pics/Prem/1993_95_Manchester_United_Away_Shirt_Cantona_7.webp"
-                            alt="..." />
-                        <div class="card-body p-4 text-black">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">1993-95 Manchester United Away Shirt</h5>
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$20.00</span>
-                                $18.00 <br>
-                                <span class="text-muted product-id">#PL-02</span>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                            <div class="text-center"> <button class="btn btn-outline-dark mt-auto add-to-cart"
-                                    data-id="jersey-1">Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <!-- Shirt 2 -->
-                <div class="card">
-
-                <div class="col mb-5">
-                    <div class="card h-100 bg-white border-light shadow">
-                        <img class="card-img-top" src="pics/Bundesliga/2015_16_Bayern_Munich_Away_Shirt_Gotze_19.webp"
-                            alt="..." />
-                        <div class="card-body p-4 text-black">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">2015-16 Bayern Munich Away Shirt</h5>
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star"></div>
-                                </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$50.00</span>
-                                $25.00 <br>
-                                <span class="text-muted product-id">#BL-05</span>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                            <div class="text-center"> <button class="btn btn-outline-dark mt-auto add-to-cart"
-                                    data-id="jersey-1">Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="card">
-
-                <div class="col mb-5">
-                    <div class="card h-100 bg-white border-light shadow">
-                        <img class="card-img-top" src="pics/Serie A/2009_10_AC_Milan_Away_Shirt_7.webp" alt="..." />
-                        <div class="card-body p-4 text-black">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">2009-10 AC Milan Away Shirt</h5>
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$50.00</span>
-                                $25.00 <br>
-                                <span class="text-muted product-id">#SA-06</span>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                            <div class="text-center">
-                                <button class="btn btn-outline-dark mt-auto add-to-cart" data-id="jersey-1">Add to
-                                    cart</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-</div>
-
-            </div>
-        </div>
+        <!-- Shop the Latest Bubble -->
+<div class="container mx-auto p-4 my-5 rounded shadow bg-white" style="max-width: 60%;">
+    <div class="text-center mb-4">
+        <h2>Shop the Latest!</h2>
+        <p class="lead">Step onto the pitch in timeless fashion with our carefully curated selection of retro jerseys. From legendary title-winning kits to rare fan favorites, find the perfect addition to your collection.</p>
     </div>
 
-    <!-- Content section-->
-    <section class="py-5">
-        <div class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h2>Shop the Latest!</h2>
-                    <p class="lead">Step onto the pitch in timeless fashion with our carefully curated selection of
-                        retro jerseys. Whether you're a die-hard supporter or a collector, these classic designs let you
-                        wear a piece of football history. Crafted with premium materials and authentic detailing, our
-                        jerseys bring back the glory of past seasons. From legendary title-winning kits to rare fan
-                        favorites, find the perfect addition to your collection. Shop now and show your love for the
-                        game with style that never fades.
-
-
-
-
-
-
-
-
-                    </p>
+    <!-- Product Cards Row -->
+    <div class="row row-cols-2 row-cols-md-4 g-4 justify-content-center">
+        <% if (products && products.length > 0) { %>
+            <% products.forEach(product => { %>
+                <div class="col">
+                    <div class="card h-100 text-center d-flex flex-column">
+                        <img src="/pics/<%= product.league %>/<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="fw-bolder product-name"><%= product.name %></h5>
+                            <div class="d-flex justify-content-center text-warning mb-2">
+                                <% for (let i = 0; i < 5; i++) { %>
+                                    <i class="<%= i < product.rating ? 'bi-star-fill' : 'bi-star' %>"></i>
+                                <% } %>
+                            </div>
+                            <span class="product-price mt-auto">$<%= product.price %></span>
+                        </div>
+                        <div class="card-footer bg-white border-top-0">
+                            <button class="btn btn-outline-dark add-to-cart mt-auto">Add to Cart</button>
+                        </div>
+                    </div>
                 </div>
+            <% }) %>
+        <% } else { %>
+            <div class="col-12 text-center">
+                <p>No products available at the moment.</p>
             </div>
-        </div>
-    </section>
-    <!-- Footer-->
+        <% } %>
+    </div>
+</div>
+
+    <!-- Footer -->
     <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Patrick Agboka's Website 2025</p>
+        <div class="container text-center">
+            <p class="m-0 text-white">&copy; Patrick Agboka's Website 2025</p>
         </div>
     </footer>
-    <!-- Bootstrap core JS-->
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="/cart.js"></script>
 </body>
 
 </html>

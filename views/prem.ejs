@@ -12,49 +12,12 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">La Liga</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex justify-content-evenly mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.ejs">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="laliga.ejs">La Liga</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="prem.ejs">Premier League</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="seriea.ejs">Serie A</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="bundesliga.ejs">Bundesliga</a></li>
+                    <%- include("partials/navbar", { userid: userid }) %>
 
-
-
-                        <li class="nav-item"><a class="nav-link" href="about.ejs">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.ejs">Contact</a></li>
-
-                       
-                    </ul>
-                    <form class="d-flex position-relative">
-                        <button class="btn btn-outline-dark" type="button" id="cartButton">
-                            <i class="bi-cart-fill me-1"></i> Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    
-                        <!-- Cart Dropdown -->
-                        <div id="cartDropdown" class="cart-dropdown shadow bg-white p-3" style="display: none; position: absolute; right: 0; top: 100%; width: 250px; z-index: 1000; border-radius: 8px;">
-                            <h6 class="text-center">Cart Items</h6>
-                            <ul id="cartItemsList" class="list-unstyled"></ul>
-                            <div class="text-center mt-2">
-                                <button id="clearCartButton" class="btn btn-sm btn-danger">Clear Cart</button>
-                                <a href="cart.ejs" class="btn btn-sm btn-dark">View Cart</a>
-                            </div>
-                        </div>
-                    </form>
-                    
-                </div>
-            </div>
-        </nav>
         <!-- Header-->
         <header class="bg-dark py-5" 
     style="background-image: url('pics/Home/plbackgr.jpg'); 
@@ -69,423 +32,53 @@
             </div>
         </header>
         <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="card">
+          <section class="py-5">
+            <div class="container">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4 justify-content-center">
+                    <% products.forEach(product=> { %>
+                        <div class="col">
+                            <div class="card h-100" data-league="<%= product.league %>"
+                                data-image="<%= product.image %>">
+                                <img src="/pics/<%= product.league %>/<%= product.image %>" class="card-img-top"
+                                    alt="<%= product.name %>">
+                                <div class="card-body text-center d-flex flex-column">
 
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2007_08_Tottenham_Away_Shirt_Modric_14.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2007-08 Tottenham Away Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
+                                    <!-- Product name (equal height) -->
+                                    <h5 class="fw-bolder product-name mb-2" style="min-height: 48px;">
+                                        <%= product.name %>
+                                    </h5>
+
+                                    <!-- Rating (equal height) -->
+                                    <div class="rating-row d-flex justify-content-center mb-2"
+                                        style="min-height: 24px;">
+                                        <% for (let i=0; i < 5; i++) { %>
+                                            <i
+                                                class="<%= i < product.rating ? 'bi-star-fill' : 'bi-star' %> text-warning"></i>
+                                            <% } %>
                                     </div>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00 <br>
-                                    <span class="text-muted product-id">#PL-01</span>
+
+                                    <!-- Price (always pushed to bottom) -->
+                                    <span class="product-price mt-auto">$<%= product.price %></span>
+
                                 </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
+
+
+                                <div class="card-footer text-center bg-white border-top-0">
+                                    <button class="btn btn-outline-dark add-to-cart mt-auto">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/1993_95_Manchester_United_Away_Shirt_Cantona_7.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">1993-95 Manchester United Away Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00 <br>
-                                    <span class="text-muted product-id">#PL-02</span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/1996_98_Arsenal_Home_Shirt_Vieira_4_8_10.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">1996-98 Arsenal Home Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00 <br>
-                                    <span class="text-muted product-id">#PL-03</span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/1997_99_Newcastle_Home_Shirt_Shearer_9.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">1997-99 Newcastle Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#PL-04</span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2003_04_Aston_Villa_Home_Shirt_Hadji_20.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2003-04 Aston Villa Home Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00 <br>
-                                    <span class="text-muted product-id">#PL-05</span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2006_08_Arsenal_Home_Shirt_Henry_14_6_10.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2006-08 Arsenal Home Shirt</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $120.00 - $280.00 <br>
-                                    <span class="text-muted product-id">#PL-06</span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2007_08_Everton_Third_Shirt_Pienaar_20.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2007-08 Everton Third Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00 <br>
-                                    <span class="text-muted product-id">#PL-07</span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2009_10_Manchester_United_Home_Shirt_Scholes_18.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2009-10 Manchester United Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#PL-08</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2009_10_Tottenham_Away_Shirt_Bale_3.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2009-10 Tottenham Away Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#PL-09</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2010_11_Chelsea_Third_Shirt_Drogba_11.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2010-11 Chelsea Third Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#PL-10</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2011_13_Manchester_United_Away_Shirt_JS_Park_13.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2011-13 Manchester United Away Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#PL-11</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="pics/Prem/2016_17_Arsenal_Home_Shirt_Ozil_11.webp" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">2016-17 Arsenal Home Shirt</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00 <br>
-                                    <span class="text-muted product-id">#PL-12</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-white">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto add-to-cart">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                        <% }) %>
                 </div>
             </div>
         </section>
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Patrick Agboka's Website 2025</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/scripts.js"></script>
+        <script src="/cart.js"></script>
     </body>
 </html>

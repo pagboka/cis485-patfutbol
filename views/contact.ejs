@@ -11,51 +11,11 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon rounded-circle mb-4" href="pics/Home/realicon.jpg" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">PatFutbol!</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav d-flex justify-content-evenly mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.ejs">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="laliga.ejs">La Liga</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="prem.ejs">Premier League</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="seriea.ejs">Serie A</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="bundesliga.ejs">Bundesliga</a></li>
+            <%- include("partials/navbar", { userid: userid }) %>
 
-
-
-                        <li class="nav-item"><a class="nav-link" href="about.ejs">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.ejs">Contact</a></li>
-
-                        
-                    </ul>
-                    <form class="d-flex position-relative">
-                        <button class="btn btn-outline-dark" type="button" id="cartButton">
-                            <i class="bi-cart-fill me-1"></i> Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    
-                        <!-- Cart Dropdown -->
-                        <div id="cartDropdown" class="cart-dropdown shadow bg-white p-3" style="display: none; position: absolute; right: 0; top: 100%; width: 250px; z-index: 1000; border-radius: 8px;">
-                            <h6 class="text-center">Cart Items</h6>
-                            <ul id="cartItemsList" class="list-unstyled"></ul>
-                            <div class="text-center mt-2">
-                                <button id="clearCartButton" class="btn btn-sm btn-danger">Clear Cart</button>
-                                <a href="cart.ejs" class="btn btn-sm btn-dark">View Cart</a>
-                            </div>
-                        </div>
-                    </form>
-                    
-                    
-                </div>
-            </div>
-        </nav>
 <div class="container-fluid px-5 my-5">
     <div class="row justify-content-center">
       <div class="col-xl-10">
@@ -120,6 +80,6 @@
 </body>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/scripts.js"></script>
+  <script src="/cart.js"></script>
   
     </html>

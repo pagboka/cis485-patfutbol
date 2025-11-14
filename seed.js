@@ -8,12 +8,16 @@ mongoose.connect('mongodb://localhost:27017/cis485', {
 });
 
 const productSchema = new mongoose.Schema({
-  league: String,
+  id: String,
+  league: String,       // 'bundesliga', 'laliga', 'prem', 'seriea', 'home'
   name: String,
   price: Number,
+  maxPrice: Number,
+  oldPrice: Number,
   image: String,
-  description: String
+  rating: Number
 });
+
 
 const Product = mongoose.model('Product', productSchema);
 
@@ -46,5 +50,7 @@ async function importCSV(filePath, leagueName) {
   await importCSV('laligaProducts.csv', 'laliga');
   await importCSV('premProducts.csv', 'prem');
   await importCSV('serieaProducts.csv', 'seriea');
+  await importCSV('homeProducts.csv', 'home');
+
   mongoose.connection.close();
 })();

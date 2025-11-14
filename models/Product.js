@@ -6,8 +6,8 @@ const productSchema = new mongoose.Schema({
   price: Number,
   maxPrice: Number,
   oldPrice: Number,
-  img: String,
-  stars: Number,
+  image: String,
+  rating: Number,
   league: String  // 'bundesliga', 'laliga', 'prem', 'seriea'
 });
 
