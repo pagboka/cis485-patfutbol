@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/index">PatFutbol</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/prem">Premier League</a></li>
+        <li class="nav-item"><a class="nav-link" href="/laliga">La Liga</a></li>
+        <li class="nav-item"><a class="nav-link" href="/bundesliga">Bundesliga</a></li>
+        <li class="nav-item"><a class="nav-link" href="/seriea">Serie A</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+
+
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link dropdown-toggle" href="#" id="cartDropdownLink" role="button" data-bs-toggle="dropdown">
+            🛒 Cart <span id="cart-count" class="badge rounded-pill bg-danger">0</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end p-2" style="min-width: 250px;" id="cart-dropdown">
+            <li class="text-center">Loading...</li>
+          </ul>
+        </li>
+
+        <% if (userid) { %>
+          <li class="nav-item"><a class="nav-link" href="/logout">Logout (<%= userid %>)</a></li>
+        <% } else { %>
+          <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+        <% } %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const cartDropdown = document.getElementById("cart-dropdown");
+  const cartCount = document.getElementById("cart-count");
+
+  async function loadCart() {
+    try {
+      const res = await fetch("/api/cart");
+      if (!res.ok) throw new Error("Failed to fetch cart");
+      const cart = await res.json();
+
+      // Update counter
+      const totalQty = cart.reduce((sum, item) => sum + Number(item.itemqty || 0), 0);
+      cartCount.textContent = totalQty;
+
+      // Clear dropdown
+      cartDropdown.innerHTML = "";
+
+      if (cart.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "Cart is empty";
+        li.className = "text-center mb-2";
+        cartDropdown.appendChild(li);
+      } else {
+        cart.forEach(item => {
+          const li = document.createElement("li");
+          li.className = "d-flex align-items-center mb-2";
+
+          const img = document.createElement("img");
+          img.src = `/pics/${item.league}/${item.image}`;
+          img.alt = item.itemid;
+          img.style.width = "40px";
+          img.style.height = "40px";
+          img.style.objectFit = "cover";
+          img.style.marginRight = "10px";
+          img.className = "rounded";
+
+          li.appendChild(img);
+          li.appendChild(document.createTextNode(`${item.itemid} x ${item.itemqty} - $${item.itemprice}`));
+
+          cartDropdown.appendChild(li);
+        });
+      }
+
+      // Add divider
+      const divider = document.createElement("li");
+      divider.innerHTML = '<hr class="dropdown-divider">';
+      cartDropdown.appendChild(divider);
+
+      // Add View Cart button
+      const viewCartLi = document.createElement("li");
+      viewCartLi.className = "text-center mb-1";
+      const viewCartBtn = document.createElement("button");
+      viewCartBtn.className = "btn btn-sm btn-primary w-100";
+      viewCartBtn.textContent = "View Cart";
+      viewCartBtn.addEventListener("click", () => {
+        window.location.href = "/cart";
+      });
+      viewCartLi.appendChild(viewCartBtn);
+      cartDropdown.appendChild(viewCartLi);
+
+      // Add Clear Cart button
+      const clearCartLi = document.createElement("li");
+      clearCartLi.className = "text-center mt-1";
+      const clearCartBtn = document.createElement("button");
+      clearCartBtn.className = "btn btn-sm btn-danger w-100";
+      clearCartBtn.textContent = "Clear Cart";
+      clearCartBtn.addEventListener("click", async () => {
+        if (confirm("Are you sure you want to clear the cart?")) {
+          await fetch("/api/cart/clear", { method: "DELETE" });
+          loadCart();
+        }
+      });
+      clearCartLi.appendChild(clearCartBtn);
+      cartDropdown.appendChild(clearCartLi);
+
+    } catch (err) {
+      console.error("Error loading cart:", err);
+      cartDropdown.innerHTML = "<li class='text-center text-danger'>Error loading cart</li>";
+    }
+  }
+
+  loadCart();
+  // Optional: refresh every 5 seconds
+  setInterval(loadCart, 5000);
+});
+</script>
